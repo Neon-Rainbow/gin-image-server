@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"ImageServer/config"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -11,6 +12,12 @@ import (
 
 // UploadImage 处理图片上传
 func UploadImage(c *gin.Context) {
+	var serveBaseURL = fmt.Sprintf(
+		"http://%v:%v/image",
+		config.GetConfig().Server.Host,
+		config.GetConfig().Server.Port,
+	)
+
 	file, err := c.FormFile("image")
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -42,10 +49,12 @@ func UploadImage(c *gin.Context) {
 		return
 	}
 
+	fileURL := fmt.Sprintf("%s/%s", serveBaseURL, newFileName)
+
 	// 返回图片存储路径
 	c.JSON(http.StatusOK, gin.H{
 		"message":  "Image uploaded successfully",
-		"filepath": filePath,
+		"filepath": fileURL,
 	})
 }
 

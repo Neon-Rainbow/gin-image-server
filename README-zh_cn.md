@@ -8,17 +8,36 @@
 ```
 ImageServer/
 ├── Dockerfile
+├── LICENSE
+├── README-zh_cn.md
 ├── README.md
+├── config
+│   └── config.go
+├── config.yaml
 ├── controllers
 │   └── image_controller.go
 ├── docker-compose.yml
 ├── go.mod
 ├── go.sum
 ├── main.go
-└── models
-    └── image.go
+├── models
+│   └── image.go
+└── uploads
+
 
 ```
+
+config.yaml内容:
+```yaml
+server:
+  host: 127.0.0.1 # 服务器地址
+  port: 8080 # 服务器端口
+```
+返回的url的格式:
+```
+http://{host}:{post}/image/{image_name}
+```
+可以直接访问该地址来访问图片
 
 ## 功能介绍
 

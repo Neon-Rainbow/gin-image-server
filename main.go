@@ -1,11 +1,18 @@
 package main
 
 import (
+	"ImageServer/config"
 	"ImageServer/controllers"
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	err := config.InitConfig()
+	if err != nil {
+		fmt.Println("Init config failed, err:", err)
+	}
+
 	router := gin.Default()
 
 	// 创建用于存储上传图片的目录
